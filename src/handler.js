@@ -32,6 +32,7 @@ const addBookHandler = (request, h) => {
   const updatedAt = insertedAt;
 
   const newBook = {
+    id,
     name,
     year,
     author,
@@ -39,9 +40,8 @@ const addBookHandler = (request, h) => {
     publisher,
     pageCount,
     readPage,
-    reading,
-    id,
     finished,
+    reading,
     insertedAt,
     updatedAt,
   };
@@ -70,4 +70,16 @@ const addBookHandler = (request, h) => {
   return response;
 };
 
-module.exports = { addBookHandler };
+// GET ALLBOOKS
+
+const getBooksHandler = () => ({
+  status: 'success',
+  data: {
+    books,
+  },
+});
+
+module.exports = {
+  addBookHandler,
+  getBooksHandler,
+};
