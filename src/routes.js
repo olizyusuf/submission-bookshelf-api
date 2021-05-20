@@ -8,7 +8,7 @@ const routes = [
   },
   {
     method: 'GET',
-    path: '/books',
+    path: '/books/{bookId?}',
     handler: getBooksHandler,
   },
 ];
