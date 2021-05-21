@@ -73,9 +73,10 @@ const addBookHandler = (request, h) => {
 // GET BOOKS
 const getBooksHandler = (request, h) => {
   const { bookId } = request.params;
-  const bookbyid = books.filter();
 
-  if (bookbyid !== undefined) {
+  const bookbyid = books.filter((b) => b.id === bookId)[0];
+
+  if (bookId !== undefined) {
     if (bookbyid === undefined) {
       const response = h.response({
         status: 'fail',
