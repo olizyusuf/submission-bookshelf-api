@@ -96,6 +96,77 @@ const getBooksHandler = (request, h) => {
     return response;
   }
 
+  const { name, reading, finished } = request.query;
+
+  if (reading !== undefined) {
+    const readStat = books.filter((b) => b.reading === (reading === '1')).map((b) => ({
+      id: b.id,
+      name: b.name,
+      publisher: b.publisher,
+    }));
+
+    if (readStat === undefined) {
+      const response = h.response({
+        status: 'fail',
+        message: 'Data buku tidak ditemukan',
+      });
+      response.code(404);
+      return response;
+    }
+
+    const response = h.response({
+      status: 'success',
+      data: {
+        books: readStat,
+      },
+    });
+    response.code(200);
+    return response;
+  }
+
+  if (finished !== undefined) {
+    const finishedStat = books.filter((b) => b.finished === (finished === '1')).map((b) => ({
+      id: b.id,
+      name: b.name,
+      publisher: b.publisher,
+    }));
+
+    if (finishedStat === undefined) {
+      const response = h.response({
+        status: 'fail',
+        message: 'Data buku tidak ditemukan',
+      });
+      response.code(404);
+      return response;
+    }
+
+    const response = h.response({
+      status: 'success',
+      data: {
+        books: finishedStat,
+      },
+    });
+    response.code(200);
+    return response;
+  }
+
+  if (name !== undefined) {
+    const formatString = books.filter((b) => b.name.toLowerCase().includes(name.toLowerCase()));
+
+    const response = h.response({
+      status: 'success',
+      data: {
+        books: formatString.map((b) => ({
+          id: b.id,
+          name: b.name,
+          publisher: b.publisher,
+        })),
+      },
+    });
+    response.code(200);
+    return response;
+  }
+
   const book = books.map((b) => ({ id: b.id, name: b.name, publisher: b.publisher }));
 
   const response = h.response({
